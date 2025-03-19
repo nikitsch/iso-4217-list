@@ -7,3 +7,9 @@ export interface Country {
   minorUnit: string;
 }
 export type ISOCountries = Country[];
+
+export interface PageList {
+  _id: string;
+  alphabeticCodes: string[];
+  countries: string[];
+}
