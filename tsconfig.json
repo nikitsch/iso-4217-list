@@ -22,7 +22,7 @@
       "~helper/*": ["./src/helper/*"],
       "~hook/*": ["./src/hook/*"],
       "~interface/*": ["./src/interface/*"],
-      "~lib/*": ["./src/lib/*"],
+      "~lib/*": ["./src/lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

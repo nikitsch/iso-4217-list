@@ -7,7 +7,3 @@ export interface Country {
   minorUnit: string;
 }
 export type ISOCountries = Country[];
-
-export interface Currency {
-  [key: string]: Pick<Country, "alphabeticCode">;
-}
