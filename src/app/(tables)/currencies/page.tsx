@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { getTransformedCurrencies } from '~helper/getTransformedCurrencies';
 import { getInputCheckboxValue } from '~helper/getInputCheckboxValue';
 import { currencyCompareFn } from '~helper/currencyCompareFn';
 import { useGetISOCountries } from '~hook/useGetISOCountries';
-import { ISOCountries, IPageList } from '~interface/index';
 import Loader from '../(components)/Loader';
 import NoData from '../(components)/NoData';
 import GridRow from '../(components)/GridRow';
@@ -12,26 +12,6 @@ import GridRow from '../(components)/GridRow';
 import '../styles.css';
 
 import type { FC } from 'react';
-
-const getCurrencies = (iso: ISOCountries) => {
-  return iso.reduce((acc: { [key: string]: IPageList }, cur) => {
-    const { _id, alphabeticCode, country, numericCode } = cur;
-
-    if (numericCode in acc) {
-      acc[numericCode].countries.push(country);
-      return acc;
-    }
-
-    return {
-      ...acc,
-      [numericCode]: {
-        _id,
-        countries: [country],
-        alphabeticCodes: [alphabeticCode],
-      },
-    };
-  }, {});
-};
 
 const Currencies: FC = () => {
   const { isoCountries, loading } = useGetISOCountries();
@@ -50,7 +30,7 @@ const Currencies: FC = () => {
 
   return (
     <div className="list">
-      {Object.entries(getCurrencies(isoCountries))
+      {getTransformedCurrencies(isoCountries)
         .sort(currencyCompareFn)
         .map(([numericCode, item]) => {
           const { _id, alphabeticCodes, countries } = item;
