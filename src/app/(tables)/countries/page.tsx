@@ -1,13 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import { getInputCheckboxValue } from '~helper/getInputCheckboxValue';
 import { useGetISOCountries } from '~hook/useGetISOCountries';
-import { ISOCountries, PageList } from '~interface/index';
+import { ISOCountries, IPageList } from '~interface/index';
+import Loader from '../(components)/Loader';
+import NoData from '../(components)/NoData';
+import GridRow from '../(components)/GridRow';
 
 import '../styles.css';
 
+import type { FC } from 'react';
+
 const getCountries = (iso: ISOCountries) => {
-  return iso.reduce((acc: { [key: string]: PageList }, cur) => {
+  return iso.reduce((acc: { [key: string]: IPageList }, cur) => {
     const { _id, alphabeticCode, country } = cur;
 
     if (country in acc) {
@@ -26,10 +32,7 @@ const getCountries = (iso: ISOCountries) => {
   }, {});
 };
 
-const getInputCheckboxValue = (inactive: string[], value: string) =>
-  inactive.includes(value);
-
-export default function Countries() {
+const Countries: FC = () => {
   const { isoCountries, loading } = useGetISOCountries();
   const [inactiveCurrencies, setInactiveCurrencies] = useState<string[]>([]);
 
@@ -41,46 +44,29 @@ export default function Countries() {
     );
   };
 
-  if (loading) return '...Loading';
+  if (loading) return <Loader />;
+  if (!isoCountries?.length) return <NoData />;
 
   return (
-    <div>
-      <h1 className="table-title">Countries</h1>
-      {isoCountries?.length ? (
-        <div className="list">
-          {Object.entries(getCountries(isoCountries)).map(([country, item]) => {
-            const { _id, alphabeticCodes } = item;
-            const codes = alphabeticCodes.join(', ');
-            const checked = getInputCheckboxValue(inactiveCurrencies, country);
+    <div className="list">
+      {Object.entries(getCountries(isoCountries)).map(([country, item]) => {
+        const { _id, alphabeticCodes } = item;
+        const codes = alphabeticCodes.join(', ');
+        const checked = getInputCheckboxValue(inactiveCurrencies, country);
 
-            return (
-              <div
-                key={_id}
-                className="grid grid-cols-10 grid-flow-col gap-4 p-2"
-              >
-                <div className="flex align-middle col-span-1">
-                  <input
-                    id="countries"
-                    type="checkbox"
-                    checked={checked}
-                    onChange={() => handleChange(country)}
-                  />
-                </div>
-                <div className={`col-span-7 ${checked ? 'inactive' : ''}`}>
-                  {country}
-                </div>
-                <div
-                  className={`flex justify-end col-span-2 ${checked ? 'inactive' : ''}`}
-                >
-                  {codes}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <p>No data :(</p>
-      )}
+        return (
+          <GridRow
+            key={_id}
+            page="countries"
+            checked={checked}
+            content={[country, codes]}
+            classNames={['flex align-middle', 'col-span-7', 'col-span-2']}
+            onChange={() => handleChange(country)}
+          />
+        );
+      })}
     </div>
   );
-}
+};
+
+export default Countries;

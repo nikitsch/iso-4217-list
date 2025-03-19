@@ -1,4 +1,4 @@
-export interface Country {
+export interface ICountry {
   _id: string;
   country: string;
   currency: string;
@@ -6,9 +6,9 @@ export interface Country {
   numericCode: number;
   minorUnit: string;
 }
-export type ISOCountries = Country[];
+export type ISOCountries = ICountry[];
 
-export interface PageList {
+export interface IPageList {
   _id: string;
   alphabeticCodes: string[];
   countries: string[];
