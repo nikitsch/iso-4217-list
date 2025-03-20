@@ -11,17 +11,15 @@ interface INavButtonProps extends LinkProps {
   buttonClassName?: string;
 }
 
-const BLUE_COLOR = 'blue-500';
-
 const NavButton: FC<PropsWithChildren<INavButtonProps>> = (props) => {
   const { href, buttonClassName = '', children, ...restLinkProps } = props;
 
   const path = usePathname();
   const active =
     path === href
-      ? `bg-${BLUE_COLOR} text-white hover:bg-blue-600`
-      : 'hover:bg-blue-500/10';
-  const className = `px-4 py-2 rounded-full border border-${BLUE_COLOR} text-${BLUE_COLOR} ${active} ${buttonClassName}`;
+      ? `bg-blue-500 text-white hover:bg-blue-600`
+      : `text-blue-500 hover:bg-blue-500/10`;
+  const className = `px-4 py-2 rounded-full border border-blue-500 ${active} ${buttonClassName}`;
 
   return (
     <Link href={href} {...restLinkProps}>
