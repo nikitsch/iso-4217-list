@@ -5,12 +5,13 @@ interface IGridRowProps {
   page: string;
   checked: boolean;
   content: string[];
+  disabled: boolean;
   classNames: string[];
   onChange: () => void;
 }
 
 const GridRow: FC<IGridRowProps> = (props) => {
-  const { key, page, checked, content, classNames, onChange } = props;
+  const { key, page, checked, content, disabled, classNames, onChange } = props;
 
   const [secondColCont, thirdColCont] = content;
   const [firstColClass, secondColClass, thirdColClass] = classNames;
@@ -23,6 +24,7 @@ const GridRow: FC<IGridRowProps> = (props) => {
           type="checkbox"
           checked={checked}
           onChange={onChange}
+          disabled={disabled}
         />
       </div>
       <div className={`${secondColClass} ${checked ? 'inactive' : ''}`}>

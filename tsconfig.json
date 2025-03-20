@@ -19,10 +19,12 @@
     ],
     "paths": {
       "~app/*": ["./src/app/*"],
+      "~constant/*": ["./src/constant/*"],
       "~helper/*": ["./src/helper/*"],
       "~hook/*": ["./src/hook/*"],
       "~interface/*": ["./src/interface/*"],
-      "~lib/*": ["./src/lib/*"]
+      "~lib/*": ["./src/lib/*"],
+      "~provider/*": ["./src/provider/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

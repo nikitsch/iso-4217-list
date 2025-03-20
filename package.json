@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.69.0",
     "mongodb": "^6.14.2",
     "next": "14.2.25",
     "react": "^18",

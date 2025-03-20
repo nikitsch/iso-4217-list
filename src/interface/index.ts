@@ -6,10 +6,29 @@ export interface ICountry {
   numericCode: number;
   minorUnit: string;
 }
-export type ISOCountries = ICountry[];
 
 export interface IPageList {
   _id: string;
   alphabeticCodes: string[];
   countries: string[];
+}
+
+export interface IInactiveCountries {
+  _id: 'inactiveCountries';
+  countries: string[];
+}
+
+export interface IInactiveCurrencies {
+  _id: 'inactiveCurrencies';
+  currencies: number[];
+}
+
+export enum TableEnum {
+  COUNTRIES = 'COUNTRIES',
+  CURRENCY = 'CURRENCY',
+}
+
+export enum ActionEnum {
+  ADD = 'ADD',
+  REMOVE = 'REMOVE',
 }

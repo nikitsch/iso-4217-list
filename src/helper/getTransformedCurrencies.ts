@@ -1,6 +1,6 @@
-import { IPageList, ISOCountries } from '~interface/index';
+import { ICountry, IPageList } from '~interface/index';
 
-export const getTransformedCurrencies = (array: ISOCountries) => {
+export const getTransformedCurrencies = (array: ICountry[]) => {
   const result = array.reduce((acc: { [key: string]: IPageList }, cur) => {
     const { _id, alphabeticCode, country, numericCode } = cur;
 

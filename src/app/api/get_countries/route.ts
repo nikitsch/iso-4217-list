@@ -1,8 +1,5 @@
+import { COLL_ISO_COUNTRIES, DB_NAME, ERROR_MESSAGES } from '~constant/index';
 import clientPromise from '~lib/mongo';
-
-const DB_NAME = process.env.DB_NAME || '';
-const COLL_ISO_COUNTRIES = process.env.COLL_ISO_COUNTRIES || '';
-const ERROR_MESSAGE = 'Failed to fetch ISO Countries data';
 
 export async function GET() {
   try {
@@ -18,10 +15,13 @@ export async function GET() {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error(ERROR_MESSAGE, error);
+    console.error(ERROR_MESSAGES.FAILED_FETCH_COUNTRIES, error);
 
-    return new Response(JSON.stringify({ error: ERROR_MESSAGE }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ error: ERROR_MESSAGES.FAILED_FETCH_COUNTRIES }),
+      {
+        status: 500,
+      }
+    );
   }
 }
