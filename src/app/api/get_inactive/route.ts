@@ -22,9 +22,7 @@ export async function GET(request: Request) {
     if (!table) {
       return new Response(
         JSON.stringify({ error: ERROR_MESSAGES.TABLE_REQUIRED }),
-        {
-          status: 400,
-        }
+        { status: 400 }
       );
     }
 
@@ -58,18 +56,14 @@ export async function GET(request: Request) {
 
     return new Response(
       JSON.stringify({ error: ERROR_MESSAGES.UNKNOWN_TABLE }),
-      {
-        status: 400,
-      }
+      { status: 400 }
     );
   } catch (error) {
     console.error(ERROR_MESSAGES.FAILED_FETCH_INACTIVE, error);
 
     return new Response(
       JSON.stringify({ error: ERROR_MESSAGES.FAILED_FETCH_INACTIVE }),
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 }

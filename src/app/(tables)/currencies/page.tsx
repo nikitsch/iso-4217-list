@@ -4,6 +4,9 @@ import { getTransformedCurrencies } from '~helper/getTransformedCurrencies';
 import { getInputCheckboxValue } from '~helper/getInputCheckboxValue';
 import { currencyCompareFn } from '~helper/currencyCompareFn';
 import { useGetCountries } from '~hook/useGetCountries';
+import { useGetInactiveCurrencies } from '~hook/useGetInactiveCurrencies';
+import { useUpdateInactive } from '~hook/useUpdateInactive';
+import { ActionEnum, TableEnum } from '~interface/index';
 import Loader from '../(components)/Loader';
 import NoData from '../(components)/NoData';
 import GridRow from '../(components)/GridRow';
@@ -11,7 +14,6 @@ import GridRow from '../(components)/GridRow';
 import '../styles.css';
 
 import type { FC } from 'react';
-import { useGetInactiveCurrencies } from '~hook/useGetInactiveCurrencies';
 
 const Currencies: FC = () => {
   const {
@@ -25,10 +27,19 @@ const Currencies: FC = () => {
     isFetching: isFetchingInactive,
   } = useGetInactiveCurrencies();
 
+  const { mutate: updateInactive, isPending: isPendingUpdateInactive } =
+    useUpdateInactive(TableEnum.CURRENCY);
+
   if (isLoadingCountries || isFetchingCountries) return <Loader />;
   if (!isoCountries?.length) return <NoData />;
 
-  const handleChange = (value: number) => alert(value);
+  const handleChange = (
+    { checked }: EventTarget & HTMLInputElement,
+    value: number
+  ) => {
+    const action = checked ? ActionEnum.ADD : ActionEnum.REMOVE;
+    updateInactive({ action, value });
+  };
 
   return (
     <div className="list">
@@ -43,11 +54,15 @@ const Currencies: FC = () => {
           return (
             <GridRow
               key={_id}
-              page="countries"
+              id={_id}
               content={[alphabeticCode, countries.join(', ')]}
               checked={checked}
-              onChange={() => handleChange(code)}
-              disabled={isLoadingInactive || isFetchingInactive}
+              onChange={(e) => handleChange(e.target, code)}
+              disabled={
+                isLoadingInactive ||
+                isFetchingInactive ||
+                isPendingUpdateInactive
+              }
               classNames={['', 'align-middle col-span-2', 'col-span-7']}
             />
           );

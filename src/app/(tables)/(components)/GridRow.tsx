@@ -1,29 +1,28 @@
-import type { FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 
 interface IGridRowProps {
-  key: string;
-  page: string;
+  id: string;
   checked: boolean;
   content: string[];
   disabled: boolean;
   classNames: string[];
-  onChange: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>, checked: boolean) => void;
 }
 
 const GridRow: FC<IGridRowProps> = (props) => {
-  const { key, page, checked, content, disabled, classNames, onChange } = props;
+  const { id, checked, content, disabled, classNames, onChange } = props;
 
   const [secondColCont, thirdColCont] = content;
   const [firstColClass, secondColClass, thirdColClass] = classNames;
 
   return (
-    <div key={key} className="grid grid-cols-10 grid-flow-col gap-4 p-2">
+    <div className="grid grid-cols-10 grid-flow-col gap-4 p-2">
       <div className={`col-span-1 ${firstColClass}`}>
         <input
-          id={`${page}-${key}`}
+          id={`checkbox-${id}`}
           type="checkbox"
           checked={checked}
-          onChange={onChange}
+          onChange={(e) => onChange(e, checked)}
           disabled={disabled}
         />
       </div>

@@ -19,9 +19,7 @@ export async function GET() {
 
     return new Response(
       JSON.stringify({ error: ERROR_MESSAGES.FAILED_FETCH_COUNTRIES }),
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 }
