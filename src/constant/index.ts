@@ -13,3 +13,5 @@ export const ERROR_MESSAGES = {
   INVALID_TABLE: 'Invalid table',
   UNKNOWN_TABLE: 'Unknown table',
 };
+
+export const NO_DATA_TITLE = 'No data available :(';

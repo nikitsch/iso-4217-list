@@ -17,15 +17,17 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
-      "~app/*": ["./src/app/*"],
-      "~constant/*": ["./src/constant/*"],
-      "~helper/*": ["./src/helper/*"],
-      "~hook/*": ["./src/hook/*"],
-      "~interface/*": ["./src/interface/*"],
-      "~lib/*": ["./src/lib/*"],
-      "~provider/*": ["./src/provider/*"]
-    }
+      "~app/*": ["src/app/*"],
+      "~constant/*": ["src/constant/*"],
+      "~helper/*": ["src/helper/*"],
+      "~hook/*": ["src/hook/*"],
+      "~interface/*": ["src/interface/*"],
+      "~lib/*": ["src/lib/*"],
+      "~provider/*": ["src/provider/*"]
+    },
+    "types": ["jest", "node", "@testing-library/jest-dom"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
